@@ -1417,7 +1417,7 @@ function MiqaatCalendar() {
   const isoFor = (d) => `${year}-${pad2(month + 1)}-${pad2(d)}`;
   const todayIso = `${TODAY.getFullYear()}-${pad2(TODAY.getMonth() + 1)}-${pad2(TODAY.getDate())}`;
 
-  const hijriAt = (d) => (hijriDays ? hijriDays[isoFor(d)] : { ...exactHijriForDate(year, month, d) });
+  const hijriAt = (d) => (hijriDays && hijriDays[isoFor(d)]) ? hijriDays[isoFor(d)] : exactHijriForDate(year, month, d);
   const firstH = hijriAt(1);
   const lastH = hijriAt(dim);
   const hijriMonthLabel =
@@ -1471,7 +1471,7 @@ function MiqaatCalendar() {
           if (d === null) return <div key={i} />;
           const iso = isoFor(d);
           const isToday = iso === todayIso;
-          const hijriDay = hijriDays ? hijriDays[iso]?.day : exactHijriForDate(year, month, d).day;
+          const hijriDay = hijriAt(d).day;
           const titles = dayEvents[i] || [];
           return (
             <div key={i} title={titles.join(", ")} className="aspect-square relative flex items-center justify-center">
