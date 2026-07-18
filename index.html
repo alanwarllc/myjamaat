@@ -1385,6 +1385,90 @@ function ThaaliTracker({ thaaliLog, onToggle }) {
   );
 }
 
+const khabargiriCategories = ["Groceries", "Transportation", "Meals", "Household help", "Procurement / errands", "Other"];
+
+function KhabargiriBoard({ posts, onAddPost, onClaim }) {
+  const [showForm, setShowForm] = useState(false);
+  const [type, setType] = useState("Need help");
+  const [category, setCategory] = useState("Groceries");
+  const [description, setDescription] = useState("");
+
+  const submit = () => {
+    if (!description.trim()) return;
+    onAddPost({ type, category, description: description.trim() });
+    setDescription("");
+    setShowForm(false);
+  };
+
+  return (
+    <div className="bg-white border border-stone-200 rounded-xl p-4 mb-6">
+      <div className="flex items-center justify-between mb-1">
+        <p className="text-sm font-medium text-stone-800">Khabargiri</p>
+        <button
+          onClick={() => setShowForm((s) => !s)}
+          className="text-xs font-medium text-teal-800 border border-teal-200 rounded-lg px-3 py-1.5 hover:bg-teal-50 transition"
+        >
+          {showForm ? "Cancel" : "Post something"}
+        </button>
+      </div>
+      <p className="text-xs text-stone-400 mb-3">Mumin are mumin's support system — ask for a hand, or offer one. Groceries for someone elderly and alone, a ride for someone without transport, a meal for someone who can't get to food, help around the house, picking something up — whatever it is.</p>
+
+      {showForm && (
+        <div className="bg-stone-50 border border-stone-200 rounded-lg p-3 mb-3 space-y-2.5">
+          <PillGroup label="This is a..." options={["Need help", "Offering help"]} value={type} onChange={setType} />
+          <PillGroup label="Category" options={khabargiriCategories} value={category} onChange={setCategory} />
+          <div>
+            <FormLabel>{type === "Need help" ? "What do you need?" : "What can you offer?"}</FormLabel>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={2}
+              placeholder={type === "Need help" ? "e.g. Need someone to pick up groceries for my elderly neighbor this week" : "e.g. Happy to give rides Tuesday/Thursday evenings"}
+              className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            />
+          </div>
+          <div className="flex justify-end">
+            <PrimaryButton onClick={submit}>Post to Khabargiri</PrimaryButton>
+          </div>
+        </div>
+      )}
+
+      {posts.length === 0 ? (
+        <p className="text-sm text-stone-400">Nothing posted yet — be the first to ask for help or offer a hand.</p>
+      ) : (
+        <div className="space-y-2">
+          {posts.map((p) => (
+            <div key={p.id} className="border border-stone-100 rounded-lg px-3 py-2.5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${p.type === "Need help" ? "bg-rose-50 text-rose-700 border-rose-200" : "bg-teal-50 text-teal-800 border-teal-200"}`}>{p.type}</span>
+                    <span className="text-[10px] text-stone-400 bg-stone-50 rounded-full px-2 py-0.5">{p.category}</span>
+                  </div>
+                  <p className="text-sm text-stone-800 leading-snug">{p.description}</p>
+                  <p className="text-[11px] text-stone-400 mt-1">{p.by} · {p.date}</p>
+                </div>
+                <div className="shrink-0">
+                  {p.status === "Open" ? (
+                    <button
+                      onClick={() => onClaim(p.id)}
+                      className="text-xs font-medium text-teal-800 border border-teal-200 rounded-full px-3 py-1.5 hover:bg-teal-50 transition whitespace-nowrap"
+                    >
+                      {p.type === "Need help" ? "I can help" : "Reach out"}
+                    </button>
+                  ) : (
+                    <span className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2.5 py-1 whitespace-nowrap">🤝 {p.claimedBy} is on it</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function MiqaatCalendar() {
   const [cursor, setCursor] = useState(new Date(2026, 6, 1));
   const [hijriDays, setHijriDays] = useState(null);
@@ -1553,12 +1637,49 @@ function MySubmissionsTracker({ submissions }) {
   );
 }
 
+// Moharram 1, 1449H, computed with the same Hijri conversion already used across
+// the app (exactHijriForDate/hijriFromAJD), not a separate guess.
+const ASHARA_START = new Date(2027, 5, 5);
+const asharaDays = Array.from({ length: 10 }, (_, i) => {
+  const d = new Date(ASHARA_START);
+  d.setDate(d.getDate() + i);
+  return d;
+});
+
+function AsharaMubarakaReminder() {
+  const daysAway = Math.round((ASHARA_START - TODAY) / 86400000);
+  return (
+    <div className="relative overflow-hidden rounded-2xl p-5 mb-6 text-white" style={{ background: "linear-gradient(135deg, #1c1917 0%, #292524 100%)" }}>
+      <div className="absolute -right-4 -bottom-4 opacity-10">
+        <Moon size={120} />
+      </div>
+      <div className="relative">
+        <div className="flex items-center justify-between mb-1 flex-wrap gap-1">
+          <p className="text-xs uppercase tracking-widest text-amber-300 font-medium">Ashara Mubaraka 1449H</p>
+          <span className="text-[11px] text-stone-300">{daysAway} days away</span>
+        </div>
+        <p className="text-sm text-stone-200 mb-3">Moharram 1–10, 1449H — start preparing now and make the necessary arrangements to take these days off. Reserve them for Husain Imam (AS).</p>
+        <div className="grid grid-cols-5 sm:grid-cols-10 gap-1.5">
+          {asharaDays.map((d, i) => (
+            <div key={i} className="bg-white/10 rounded-lg py-2 flex flex-col items-center">
+              <span className="text-[9px] text-amber-200">{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
+              <span className="text-sm font-serif">{d.getDate()}</span>
+              <span className="text-[8px] text-stone-300">Day {i + 1}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MuminHome({ thaaliLog, submissions }) {
   const todayIso = isoDate(TODAY);
   const thaaliPickedUp = !!thaaliLog?.[todayIso];
   return (
     <div>
       <SectionHeader eyebrow="Mumin portal" title="Assalamu alaikum, Hatim" />
+      <AsharaMubarakaReminder />
       <div className="relative overflow-hidden rounded-2xl mb-6" style={{ background: "linear-gradient(135deg, #0f6e56 0%, #0a4d3d 100%)" }}>
         <div className="absolute -right-6 -top-6 opacity-10">
           <Trophy size={140} color="#fff" />
@@ -2425,7 +2546,7 @@ function QardanHasanaForm({ onCancel, onSubmit }) {
 }
 
 
-function MuminUmoorDetail({ umoor, requests, onSubmit, onOpenForm, thaaliLog, onToggleThaali }) {
+function MuminUmoorDetail({ umoor, requests, onSubmit, onOpenForm, thaaliLog, onToggleThaali, khabargiriPosts, onAddKhabargiriPost, onClaimKhabargiriPost }) {
   const Icon = umoor.icon;
   const actions = muminUmoorActions[umoor.id] || [];
   return (
@@ -2441,6 +2562,7 @@ function MuminUmoorDetail({ umoor, requests, onSubmit, onOpenForm, thaaliLog, on
       </div>
       <p className="text-sm text-stone-500 my-4">Ways to get involved, request help, or stay informed through this umoor. Every action here goes straight to the {umoor.name} coordinator's queue on the admin side.</p>
       {umoor.id === "fmb" && <ThaaliTracker thaaliLog={thaaliLog} onToggle={onToggleThaali} />}
+      {umoor.id === "marafiq" && <KhabargiriBoard posts={khabargiriPosts} onAddPost={onAddKhabargiriPost} onClaim={onClaimKhabargiriPost} />}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
         {actions.map((a) => (
           <div key={a.title} className="bg-white border border-stone-200 rounded-xl p-4">
@@ -2588,6 +2710,20 @@ function App() {
     "2026-08-02": { kaaraj: "Aqiqa", by: "Petiwala family" },
   });
   const [selectedKaarajDate, setSelectedKaarajDate] = useState(null);
+  const [khabargiriPosts, setKhabargiriPosts] = useState([
+    { id: "kg-1", type: "Need help", category: "Groceries", description: "Looking for someone to pick up weekly groceries for an elderly couple in the jamaat who live alone nearby.", by: "Fatema Rangwala", date: "Jul 15, 2026", status: "Open" },
+    { id: "kg-2", type: "Offering help", category: "Transportation", description: "Have a car and free most weekday evenings — happy to give rides to majlis or appointments for anyone who needs it.", by: "Idris Saifee", date: "Jul 14, 2026", status: "Open" },
+    { id: "kg-3", type: "Need help", category: "Household help", description: "Need a hand moving a couch and a few boxes this weekend — nothing heavy-duty, just an extra pair of hands.", by: "Zainab Petiwala", date: "Jul 12, 2026", status: "Claimed", claimedBy: "Yusuf Ratlamwala" },
+  ]);
+  function addKhabargiriPost(post) {
+    setKhabargiriPosts((prev) => [
+      { id: `kg-${Date.now()}`, by: "Hatim", date: "Jul 16, 2026", status: "Open", ...post },
+      ...prev,
+    ]);
+  }
+  function claimKhabargiriPost(id) {
+    setKhabargiriPosts((prev) => prev.map((p) => (p.id === id ? { ...p, status: "Claimed", claimedBy: "Hatim" } : p)));
+  }
 
   const sections = mode === "admin" ? getAdminSections(role) : muminSections;
   const umoor = umoorList.find((u) => u.id === active);
@@ -2691,6 +2827,9 @@ function App() {
           onOpenForm={(formId) => setActiveForm(formId)}
           thaaliLog={thaaliLog}
           onToggleThaali={toggleThaali}
+          khabargiriPosts={khabargiriPosts}
+          onAddKhabargiriPost={addKhabargiriPost}
+          onClaimKhabargiriPost={claimKhabargiriPost}
         />
       );
       const cfg = muminModuleConfig[active];
