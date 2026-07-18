@@ -188,15 +188,16 @@ function goalPct(u) {
 }
 
 const boardMembers = [
-  { name: "Shk Burhanuddin Motiwala", title: "Aamil Saheb — Chairman", tag: "Anjuman e Qutbi" },
-  { name: "Shk Idris Bhaisaheb", title: "Naib Aamil Saheb — Vice Chairman", tag: "Anjuman e Qutbi" },
-  { name: "Aliasgar Motiwala", title: "Secretary", tag: "Umoor Deeniyah" },
-  { name: "Burhan Kapasi", title: "Treasurer", tag: "Umoor Maliyah" },
-  { name: "Sakina Bootwala", title: "Joint Secretary", tag: "Umoor Deeniyah" },
-  { name: "Yusuf Ratlamwala", title: "Trustee — Education", tag: "Umoor Talimiyah" },
-  { name: "Zainab Petiwala", title: "Trustee — Community Kitchen", tag: "FMB & Niyaz" },
-  { name: "Fatema Rangwala", title: "Trustee-at-large", tag: "Mawarid Bashariyah" },
-  { name: "Idris Saifee", title: "Trustee — Youth & Community", tag: "Mawarid Bashariyah" },
+  { name: "Noman Bs Nooruddin", title: "Amil Saheb" },
+  { name: "Hatim Bs Al Anwar", title: "Muawin Amil Saheb" },
+  { name: "Shk Owais bhai Saifee", title: "VP" },
+  { name: "Shk Mustafa bhai Jamali", title: "Secretary" },
+  { name: "Shk Husain bhai Rangwala", title: "Jt. Sec." },
+  { name: "M. Mohammed bhai Nomani", title: "Treasurer" },
+  { name: "Shk Yusuf bhai Zakir", title: "Board Member" },
+  { name: "Shk Husain bhai Tapiya", title: "Board Member" },
+  { name: "M. Aziz bhai Udaipurwala", title: "Board Member" },
+  { name: "Shk Adnan bhai Ezzy", title: "Board Member" },
 ];
 
 function Avatar({ name, size = 44, editable, ring }) {
@@ -1226,14 +1227,13 @@ function BoardOfDirectors() {
     <div>
       <SectionHeader eyebrow="Anjuman e Qutbi, Orange County" title="Board of directors" />
       <p className="text-sm text-stone-500 mb-5">The Anjuman leading Anjuman e Qutbi, Orange County.</p>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {boardMembers.map((m) => (
-          <div key={m.name} className="bg-white border border-stone-200 rounded-xl p-4 flex items-center gap-3">
-            <Avatar name={m.name} size={48} ring={m.title.includes("Chairman")} />
+          <div key={m.name} className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center text-center gap-2">
+            <Avatar name={m.name} size={72} ring={m.title === "Amil Saheb"} />
             <div className="min-w-0">
-              <p className="text-sm font-medium text-stone-800 truncate">{m.name}</p>
-              <p className="text-xs text-stone-500 truncate">{m.title}</p>
-              <span className="text-[10px] text-teal-700 bg-teal-50 rounded-full px-1.5 py-0.5 mt-1 inline-block">{m.tag}</span>
+              <p className="text-sm font-medium text-stone-800 leading-snug">{m.name}</p>
+              <p className="text-xs text-stone-500 mt-0.5">{m.title}</p>
             </div>
           </div>
         ))}
