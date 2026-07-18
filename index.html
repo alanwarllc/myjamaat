@@ -48,11 +48,11 @@ const roles = [
 const roleUmoorMap = { coordinator: "talimiyah", joint: "talimiyah", treasurer: "maliyah", iqtesadiyahCoord: "iqtesadiyah", deeniyahCoord: "deeniyah" };
 
 const umoorList = [
-  { id: "deeniyah", name: "Umoor Deeniyah", sub: "Deeni affairs", icon: BookOpen, tasks: 6, budget: 12400, spent: 8100,
+  { id: "deeniyah", name: "Deeniyah", sub: "Deeni affairs", icon: BookOpen, tasks: 6, budget: 12400, spent: 8100,
     goalsDone: 6,
     modules: ["Miqaat, Shehrullah & Ashara Mubarakah attendance", "Majalis/mashahid attendance tracking", "Deeni libas & rusumaat adherence log", "Khidmatguzar & burial-place training records"],
     goals: ["Adherence to tenets of Daim al Islam", "Miqaat: Shehrullah, Ashara Mubarakah ohbat and attendance", "Attendance of mumeneen in majalis/mashahid", "Protect/prevent mumeneen from all forms of muharramaat", "Adherence of mumeneen men and women to deeni libas", "Training of khidmatguzar and preparing proper burial places", "Adherence to proper rusumaat in marriages, celebrations etc.", "Taiseer un Nikah", "Attendance of mumeneen in Hazrat Imamiyah, qadambosi etc."] },
-  { id: "talimiyah", name: "Umoor Talimiyah", sub: "Affairs of education", icon: GraduationCap, tasks: 9, budget: 21000, spent: 14250,
+  { id: "talimiyah", name: "Talimiyah", sub: "Affairs of education", icon: GraduationCap, tasks: 9, budget: 21000, spent: 14250,
     goalsDone: 4,
     modules: ["Madrasa enrollment, sabaq & attendance", "Zero-mehroomeen deeni talim tracking", "Student & career counseling case files", "Higher education & raza-per-stage tracking"],
     goals: ["Survey of mumeneen for hifz ul Quraan and talim ul Quran", "Deeni talim for every child \u2014 no mehroomeen", "Adult education", "Regular asbaq and attendance tracking", "Muzakaraat and other ilmi activities", "Higher education support", "Raza attained at each stage of education"] },
@@ -60,7 +60,7 @@ const umoorList = [
     goalsDone: 2,
     modules: ["Case management for upliftment requests (confidential)", "Housing scheme applications", "Medical assistance & scholarship tracking", "Household item distribution log"],
     goals: ["Housing schemes", "Upliftment of mumeneen homes and providing household items", "Medical assistance", "Educational scholarships"] },
-  { id: "maliyah", name: "Umoor Maliyah", sub: "Financial affairs", icon: Wallet, tasks: 5, budget: 5000, spent: 3100,
+  { id: "maliyah", name: "Maliyah", sub: "Financial affairs", icon: Wallet, tasks: 5, budget: 5000, spent: 3100,
     goalsDone: 3,
     modules: ["Umoor-by-umoor operational budgets", "Computerized balance sheets", "Sabeel ul khair tracking", "Quarterly actuals for Alvaratus Saifiyah"],
     goals: ["Operational budgets for each umoor per guidelines", "Computerized balance sheets and financial data", "Strengthen the process of sabeel ul khair", "Increase jamaat income by optimizing every source"] },
@@ -76,15 +76,15 @@ const umoorList = [
       { name: "Mashaikh", sub: "Religious scholars" },
       { name: "Mafasih", sub: "Community organization" },
     ] },
-  { id: "dakheliyah", name: "Umoor Dakheliyah", sub: "Jamaat data & internal affairs", icon: Server, tasks: 7, budget: 6500, spent: 5800,
+  { id: "dakheliyah", name: "Dakheliyah", sub: "Jamaat data & internal affairs", icon: Server, tasks: 7, budget: 6500, spent: 5800,
     goalsDone: 5,
     modules: ["Mumin profile directory (ITS number & household data)", "One-window waraqat ut tarkhees requests", "Jamaat software & IT administration", "Survey data & contact records"],
     goals: ["Coordination amongst all departments of the mauze", "One-window clearance for waraqat ut tarkhees", "Strengthen use of IT and jamaat software", "Regular surveys with proper data records", "Updated list of necessary contacts and information", "Create harmonious relations amongst mumeneen", "Empower women to tactfully handle family matters"] },
-  { id: "kharijiyah", name: "Umoor Kharijiyah", sub: "Public relations", icon: Megaphone, tasks: 2, budget: 3200, spent: 1100,
+  { id: "kharijiyah", name: "Kharijiyah", sub: "Public relations", icon: Megaphone, tasks: 2, budget: 3200, spent: 1100,
     goalsDone: 2,
     modules: ["External PR & press relations log", "Inter-mauze & authority relations", "Mutawattaneen outreach tracking", "Public statement archive"],
     goals: ["Healthy communication with all mawaze of jamiyat", "Good relations with local authorities and officers", "Maintain state-level PR where applicable", "Harmonious, positive relations with the press", "Stay in touch with mutawattaneen residing elsewhere"] },
-  { id: "qaza", name: "Umoor al-Qaza", sub: "Legal affairs", icon: Scale, tasks: 1, budget: 1500, spent: 200,
+  { id: "qaza", name: "Qaza", sub: "Legal affairs", icon: Scale, tasks: 1, budget: 1500, spent: 200,
     goalsDone: 6,
     modules: ["Dispute case tracking (confidential)", "Shariat-compliant contract review", "Marital conflict mediation records", "Partnership deed archive"],
     goals: ["Create better internal relations between mumeneen", "Prevent court cases \u2014 solve matters at jamaat level", "Clear misunderstandings causing friction", "Contracts drawn by mumeneen adhere to shariat", "Marital conflicts handled at jamaat level", "Maintain records of all legal documents", "Partnership deeds drawn out amongst business partners"] },
@@ -92,15 +92,15 @@ const umoorList = [
     goalsDone: 5,
     modules: ["Thaali/household meal subscriptions", "Weekly menu & Lailat ul Qadr annual planning", "Shehrullah sihori logistics", "FMB checks, balances & documentation"],
     goals: ["Maintain good quality and quantity of food", "Finalize the year's niyaz on Lailat ul Qadr", "Provide sihori essentials during Shehrullah", "Maintain checks, balances and documentation", "Maintain a list of all miscellaneous niyaz for the year", "Arrange everyday niyaz during Shehrullah and Ashara"] },
-  { id: "iqtesadiyah", name: "Umoor Iqtesadiyah", sub: "Business affairs", icon: TrendingUp, tasks: 4, budget: 18000, spent: 7200,
+  { id: "iqtesadiyah", name: "Iqtesadiyah", sub: "Business affairs", icon: TrendingUp, tasks: 4, budget: 18000, spent: 7200,
     goalsDone: 5,
     modules: ["Business & economic development directory", "Qardan Hasana applications & repayment tracking", "Seminars/workshops calendar", "dbohra.net registration support"],
     goals: ["All businesses with raza of Maula TUS, per shariat", "Survey the types of mumeneen businesses", "Encourage healthy competition amongst mumeneen", "Educate mumeneen to modernize their businesses", "Guide mumeneen on expanding their businesses", "Build relations with mumeneen businessmen elsewhere", "Conduct seminars/workshops to enhance businesses", "Encourage registration on dbohra.net", "Support mumeneen in service to start their own businesses"] },
-  { id: "amlaak", name: "Umoor al-Amlaak", sub: "Waqf & properties", icon: Building2, tasks: 3, budget: 15000, spent: 12100,
+  { id: "amlaak", name: "Amlaak", sub: "Waqf & properties", icon: Building2, tasks: 3, budget: 15000, spent: 12100,
     goalsDone: 4,
     modules: ["Property registry & trust deeds", "Encroachment tracking & legal status", "Tamiraat-approved maintenance plans", "Property image gallery"],
     goals: ["Updated records of every dawat/jamaat property document", "Securely store all original documents", "Protect all properties from encroachment", "Legally vacate any encroached properties", "Plan for periodic structural maintenance and repairs", "New projects approved by Tamiraat Department"] },
-  { id: "sehat", name: "Sehat na Umoor", sub: "Health affairs", icon: HeartPulse, tasks: 5, budget: 4200, spent: 2950,
+  { id: "sehat", name: "Sehhat", sub: "Health affairs", icon: HeartPulse, tasks: 5, budget: 4200, spent: 2950,
     goalsDone: 1,
     modules: ["Health camp & dispensary scheduling", "Fitness & green-living initiatives (tree planting, sports)", "Mohalla cleanliness tracking", "Medical assistance cases (confidential)"],
     goals: ["Cleanliness of mumeneen mohalla, homes and properties", "Plant trees to beautify and cleanse the mohallah", "Sports facilities and awareness of their benefits", "Medical camps during mawaqeet; maintain dispensaries"] },
@@ -1238,7 +1238,7 @@ function BoardOfDirectors() {
   return (
     <div>
       <SectionHeader eyebrow="Anjuman e Qutbi, Orange County" title="Board of directors" />
-      <p className="text-sm text-stone-500 mb-5">The Anjuman leading Anjuman e Qutbi, Orange County.</p>
+      <p className="text-sm text-stone-500 mb-5">Level 1 12 Umoor</p>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {boardMembers.map((m) => (
           <div key={m.name} className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center text-center gap-2">
